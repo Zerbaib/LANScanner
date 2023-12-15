@@ -42,7 +42,7 @@ def lan_scanner(start_ip=1, end_ip=250):
         if platform.system() == 'Windows':
             command = ['ping', '-n', '1', '-w', '100', ip_address]  # Windows command
         else:
-            command = ['ping', '-c', '1', '-W', '1', ip_address]  # Linux/Mac command
+            command = ['ping', '1', '-W', '100', ip_address]  # Linux/Mac command
         
         try:
             subprocess.check_output(command, stderr=subprocess.STDOUT)

@@ -3,8 +3,21 @@ import socket
 import platform
 import os
 
-if not os.path.exists('ip.log'):
-    with open('ip.log', 'w', encoding='utf-8') as log_file:
+if not os.path.exists('log'):
+    os.mkdir('log')
+
+def get_log_file():
+    i = 0
+    while True:
+        logFile = f'log/ip{i}.log'
+        if not os.path.exists(logFile):
+            return logFile
+        i += 1
+
+logFile = get_log_file()
+
+if not os.path.exists(logFile):
+    with open(logFile, 'w', encoding='utf-8') as log_file:
         log_file.write('')
 
 def get_network_prefix():
@@ -40,7 +53,7 @@ def lan_scanner(start_ip=1, end_ip=250):
             logMessage = f"{ip_address} >>> DOWN"
             print(logMessage)
             
-        with open('ip.log', 'a', encoding='utf-8') as log_file:
+        with open(logFile, 'a', encoding='utf-8') as log_file:
             log_file.write(logMessage + '\n')
 
 start_ip, end_ip = get_ip_range()

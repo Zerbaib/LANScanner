@@ -1,6 +1,11 @@
 import subprocess
 import socket
 import platform
+import os
+
+if not os.path.exists('ip.log'):
+    with open('ip.log', 'w', encoding='utf-8') as log_file:
+        log_file.write('')
 
 def get_network_prefix():
     hostname = socket.gethostname()
@@ -28,10 +33,15 @@ def lan_scanner(start_ip=1, end_ip=250):
         
         try:
             subprocess.check_output(command, stderr=subprocess.STDOUT)
-            print(f"Host {ip_address} is up!")
+            logMessage = f"{ip_address} >>> UP"
+            print(logMessage)
             
         except subprocess.CalledProcessError:
-            print(f"Host {ip_address} is down.")
+            logMessage = f"{ip_address} >>> DOWN"
+            print(logMessage)
+            
+        with open('ip.log', 'a', encoding='utf-8') as log_file:
+            log_file.write(logMessage + '\n')
 
 start_ip, end_ip = get_ip_range()
 

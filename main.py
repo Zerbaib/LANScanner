@@ -21,10 +21,9 @@ if not os.path.exists(logFile):
         log_file.write('')
 
 def get_network_prefix():
-    hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname)
-    network_prefix = '.'.join(ip_address.split('.')[:-1]) + '.'
-
+    print("Enter the network prefix")
+    print("like 192.168.1. ; 10.0.0.")
+    network_prefix = input(">>> ")
     return network_prefix
 
 def get_ip_range():
